@@ -31,9 +31,17 @@ public class ToDoService {
                 .orElseThrow(()-> new NoSuchElementException("Tarefa não encontrada"));
             }
 
+      public ToDo create(ToDo toDo){
+        return toDoRepository.save(toDo);
+    }
 
-    public ToDo save(ToDo todo){
-        return toDoRepository.save(todo);
+    public ToDo update(Long id, ToDo toDoModify){
+        ToDo toDoUpdate = this.find(id);
+        toDoUpdate.setNome(toDoModify.getNome());
+        toDoUpdate.setDescricao(toDoModify.getDescricao());
+        toDoUpdate.setPrioridade(toDoModify.getPrioridade());
+        toDoUpdate.setUltimaModificacao(LocalDateTime.now());
+        return toDoRepository.save(toDoUpdate);
     }
 
     public void delete(Long id){
@@ -62,5 +70,4 @@ public class ToDoService {
         toDoFind.setUltimaModificacao(LocalDateTime.now());
         toDoRepository.save(toDoFind);
     }
-
 }
