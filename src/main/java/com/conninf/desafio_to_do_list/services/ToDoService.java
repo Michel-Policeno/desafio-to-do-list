@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -46,8 +47,8 @@ public class ToDoService {
             return;
         }
         toDoFind.setRealizado(true);
-        toDoFind.setDataRealizado(LocalDate.now());
-        toDoFind.setUltimaModificacao(LocalDate.now());
+        toDoFind.setDataRealizado(LocalDateTime.now());
+        toDoFind.setUltimaModificacao(LocalDateTime.now());
         toDoRepository.save(toDoFind);
     }
 
@@ -58,7 +59,7 @@ public class ToDoService {
         }
         toDoFind.setRealizado(false);
         toDoFind.setDataRealizado(null);
-        toDoFind.setUltimaModificacao(LocalDate.now());
+        toDoFind.setUltimaModificacao(LocalDateTime.now());
         toDoRepository.save(toDoFind);
     }
 

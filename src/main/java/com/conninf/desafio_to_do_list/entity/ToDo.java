@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tarefas")
@@ -20,19 +20,19 @@ public class ToDo {
     @Min(value = 0, message = "A prioridade deve ser no mínimo 0")
     @Max(value = 2, message = "A prioridade deve ser no máximo 2")
     private int prioridade;
-    private LocalDate dataCriacao;
+    private LocalDateTime dataCriacao;
     private boolean realizado;
-    private LocalDate dataRealizado;
-    private LocalDate ultimaModificacao;
+    private LocalDateTime dataRealizado;
+    private LocalDateTime ultimaModificacao;
 
     public ToDo(String nome, String descricao, int prioridade) {
         this.nome = nome;
         this.descricao = descricao;
         this.prioridade = prioridade;
-        this.dataCriacao = LocalDate.now();
+        this.dataCriacao = LocalDateTime.now();
         this.realizado = false;
         this.dataRealizado = null;
-        this.ultimaModificacao = LocalDate.now();
+        this.ultimaModificacao = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -67,11 +67,11 @@ public class ToDo {
         this.prioridade = prioridade;
     }
 
-    public LocalDate getDataCriacao() {
+    public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(LocalDate dataCriacao) {
+    public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
@@ -83,19 +83,19 @@ public class ToDo {
         this.realizado = realizado;
     }
 
-    public LocalDate getDataRealizado() {
+    public LocalDateTime getDataRealizado() {
         return dataRealizado;
     }
 
-    public void setDataRealizado(LocalDate dataRealizado) {
+    public void setDataRealizado(LocalDateTime dataRealizado) {
         this.dataRealizado = dataRealizado;
     }
 
-    public LocalDate getUltimaModificacao() {
+    public LocalDateTime getUltimaModificacao() {
         return ultimaModificacao;
     }
 
-    public void setUltimaModificacao(LocalDate ultimaModificacao) {
+    public void setUltimaModificacao(LocalDateTime ultimaModificacao) {
         this.ultimaModificacao = ultimaModificacao;
     }
 }
