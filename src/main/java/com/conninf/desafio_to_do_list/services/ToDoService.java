@@ -31,36 +31,30 @@ public class ToDoService {
                 .orElseThrow(()-> new NoSuchElementException("Tarefa não encontrada"));
             }
 
+      public ToDo create(ToDo toDo){
+        return toDoRepository.save(toDo);
+    }
 
-    public ToDo save(ToDo todo){
-        return toDoRepository.save(todo);
+    public ToDo update(Long id, ToDo toDoModify){
+        ToDo toDoUpdate = this.find(id);
+        toDoUpdate.setNome(toDoModify.getNome());
+        toDoUpdate.setDescricao(toDoModify.getDescricao());
+        toDoUpdate.setPrioridade(toDoModify.getPrioridade());
+        toDoUpdate.setUltimaModificacao(LocalDateTime.now());
+        return toDoRepository.save(toDoUpdate);
     }
 
     public void delete(Long id){
         ToDo toDoFind = this.find(id);
         toDoRepository.delete(toDoFind);
     }
-
-    public void check(Long id){
+    //Inverte o estado da tarefa
+    public ToDo check(Long id){
         ToDo toDoFind = this.find(id);
-        if (toDoFind.isRealizado()){
-            return;
-        }
-        toDoFind.setRealizado(true);
-        toDoFind.setDataRealizado(LocalDateTime.now());
+        toDoFind.setRealizado(!toDoFind.isRealizado());
+        toDoFind.setDataRealizado(toDoFind.isRealizado() ? LocalDateTime.now() : null);
         toDoFind.setUltimaModificacao(LocalDateTime.now());
-        toDoRepository.save(toDoFind);
+       return toDoRepository.save(toDoFind);
     }
 
-    public void uncheck(Long id){
-        ToDo toDoFind = this.find(id);
-        if (!toDoFind.isRealizado()){
-            return;
-        }
-        toDoFind.setRealizado(false);
-        toDoFind.setDataRealizado(null);
-        toDoFind.setUltimaModificacao(LocalDateTime.now());
-        toDoRepository.save(toDoFind);
-    }
-
-}
+   }
