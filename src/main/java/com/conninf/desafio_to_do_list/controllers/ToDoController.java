@@ -20,16 +20,14 @@ public class ToDoController {
     public ToDoController(ToDoService toDoService) {
         this.toDoService = toDoService;
     }
+
     @GetMapping
-    public ResponseEntity listAll(){
-        try {
-            return ResponseEntity.ok(toDoService.listAll());
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
+    public ResponseEntity<?> listAll(){
+      return ResponseEntity.ok(toDoService.listAll());
+      }
+
     @GetMapping("{id}")
-    public ResponseEntity find(@PathVariable Long id){
+    public ResponseEntity<?> find(@PathVariable Long id){
         try {
             return ResponseEntity.ok(toDoService.find(id));
         } catch (NoSuchElementException e) {
@@ -39,40 +37,47 @@ public class ToDoController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody @Valid ToDo todo) {
+    public ResponseEntity<?> create(@RequestBody @Valid ToDo todo) {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(toDoService.save(todo));
+            return ResponseEntity.status(HttpStatus.CREATED).body(toDoService.create(todo));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-
         }
     }
 
     @PatchMapping("/{id}")
-    public ToDo update(@PathVariable Long id, @Valid ToDo newToDo){
-
-        ToDo toDoFind = toDoService.find(id);
-        toDoFind.setNome(newToDo.getNome());
-        toDoFind.setDescricao(newToDo.getDescricao());
-        toDoFind.setPrioridade(newToDo.getPrioridade());
-        toDoFind.setUltimaModificacao(LocalDateTime.now());
-        return toDoService.save(toDoFind);
+    public ResponseEntity update(@PathVariable Long id, @RequestBody @Valid ToDo toDoModify){
+        try{
+            return  ResponseEntity.status(HttpStatus.OK).body(toDoService.update(id,toDoModify));
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("{id}")
-     public void deletar (@PathVariable Long id){
-     toDoService.delete(id);
+     public ResponseEntity delete (@PathVariable Long id){
+        try {
+            toDoService.delete(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
+     }
 
 
     @PostMapping("check/{id}")
-    public void check(@PathVariable Long id){
-        toDoService.check(id);
+    public ResponseEntity check(@PathVariable Long id){
+        try {
+           return ResponseEntity.status(HttpStatus.OK).body(toDoService.check(id));
+        }
+        catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
-
-     @PostMapping("uncheck/{id}")
-     public void uncheck(@PathVariable Long id){
-         toDoService.uncheck(id);
-     }
-
 }

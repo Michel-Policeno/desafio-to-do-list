@@ -48,26 +48,13 @@ public class ToDoService {
         ToDo toDoFind = this.find(id);
         toDoRepository.delete(toDoFind);
     }
-
-    public void check(Long id){
+    //Inverte o estado da tarefa
+    public ToDo check(Long id){
         ToDo toDoFind = this.find(id);
-        if (toDoFind.isRealizado()){
-            return;
-        }
-        toDoFind.setRealizado(true);
-        toDoFind.setDataRealizado(LocalDateTime.now());
+        toDoFind.setRealizado(!toDoFind.isRealizado());
+        toDoFind.setDataRealizado(toDoFind.isRealizado() ? LocalDateTime.now() : null);
         toDoFind.setUltimaModificacao(LocalDateTime.now());
-        toDoRepository.save(toDoFind);
+       return toDoRepository.save(toDoFind);
     }
 
-    public void uncheck(Long id){
-        ToDo toDoFind = this.find(id);
-        if (!toDoFind.isRealizado()){
-            return;
-        }
-        toDoFind.setRealizado(false);
-        toDoFind.setDataRealizado(null);
-        toDoFind.setUltimaModificacao(LocalDateTime.now());
-        toDoRepository.save(toDoFind);
-    }
-}
+   }
