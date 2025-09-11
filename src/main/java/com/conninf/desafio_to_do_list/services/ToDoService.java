@@ -18,14 +18,14 @@ public class ToDoService {
         this.toDoRepository = toDoRepository;
     }
 
-    //listar
+
     public List<ToDo> listAll(){
         Sort sort = Sort.by("realizado").ascending().and(
                     Sort.by("prioridade").descending().and(
                     Sort.by("dataCriacao").ascending()));
         return toDoRepository.findAll(sort);
     }
-    //buscarPorId
+
     public ToDo find(Long id){
         return toDoRepository.findById(id)
                 .orElseThrow(()-> new NoSuchElementException("Tarefa não encontrada"));
