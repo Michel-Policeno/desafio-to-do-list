@@ -25,6 +25,10 @@ public class ToDo {
     private LocalDateTime dataRealizado;
     private LocalDateTime ultimaModificacao;
 
+    public ToDo() {
+
+    }
+
     public ToDo(String nome, String descricao, int prioridade) {
         this.nome = nome;
         this.descricao = descricao;

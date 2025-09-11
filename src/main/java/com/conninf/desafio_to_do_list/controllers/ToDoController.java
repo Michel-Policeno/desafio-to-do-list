@@ -26,7 +26,7 @@ public class ToDoController {
       return ResponseEntity.ok(toDoService.listAll());
       }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> find(@PathVariable Long id){
         try {
             return ResponseEntity.ok(toDoService.find(id));
@@ -46,7 +46,7 @@ public class ToDoController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody @Valid ToDo toDoModify){
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Valid ToDo toDoModify){
         try{
             return  ResponseEntity.status(HttpStatus.OK).body(toDoService.update(id,toDoModify));
         } catch (NoSuchElementException e) {
@@ -56,8 +56,8 @@ public class ToDoController {
         }
     }
 
-    @DeleteMapping("{id}")
-     public ResponseEntity delete (@PathVariable Long id){
+    @DeleteMapping("/{id}")
+     public ResponseEntity<?> delete (@PathVariable Long id){
         try {
             toDoService.delete(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -68,9 +68,8 @@ public class ToDoController {
         }
      }
 
-
     @PostMapping("check/{id}")
-    public ResponseEntity check(@PathVariable Long id){
+    public ResponseEntity<?> check(@PathVariable Long id){
         try {
            return ResponseEntity.status(HttpStatus.OK).body(toDoService.check(id));
         }
