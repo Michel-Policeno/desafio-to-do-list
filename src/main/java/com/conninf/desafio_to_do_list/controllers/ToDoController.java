@@ -1,15 +1,12 @@
 package com.conninf.desafio_to_do_list.controllers;
 
-import com.conninf.desafio_to_do_list.entity.ToDo;
+import com.conninf.desafio_to_do_list.entity.todo.ToDo;
 import com.conninf.desafio_to_do_list.services.ToDoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController

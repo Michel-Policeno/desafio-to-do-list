@@ -1,4 +1,4 @@
-package com.conninf.desafio_to_do_list.entity;
+package com.conninf.desafio_to_do_list.entity.todo;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;

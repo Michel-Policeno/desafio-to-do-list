@@ -1,0 +1,9 @@
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(500) NOT NULL UNIQUE,
+    senha TEXT NOT NULL,
+    tipo VARCHAR(255) NOT NULL,
+    data_criacao TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    ativo BOOLEAN NOT NULL
+);

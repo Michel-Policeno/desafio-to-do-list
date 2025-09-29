@@ -1,11 +1,10 @@
 package com.conninf.desafio_to_do_list.services;
 
-import com.conninf.desafio_to_do_list.entity.ToDo;
+import com.conninf.desafio_to_do_list.entity.todo.ToDo;
 import com.conninf.desafio_to_do_list.repository.ToDoRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
