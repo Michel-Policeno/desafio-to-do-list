@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -20,9 +22,11 @@ public class ToDo {
     @Min(value = 0, message = "A prioridade deve ser no mínimo 0")
     @Max(value = 2, message = "A prioridade deve ser no máximo 2")
     private int prioridade;
+    @CreationTimestamp
     private LocalDateTime dataCriacao;
     private boolean realizado;
     private LocalDateTime dataRealizado;
+    @UpdateTimestamp
     private LocalDateTime ultimaModificacao;
 
     public ToDo() {
