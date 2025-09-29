@@ -1,0 +1,10 @@
+CREATE TABLE tarefas (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao VARCHAR(500),
+    prioridade INTEGER NOT NULL,
+    realizado BOOLEAN NOT NULL DEFAULT FALSE,
+    data_criacao TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    data_realizado TIMESTAMP WITHOUT TIME ZONE,
+    ultima_modificacao TIMESTAMP WITHOUT TIME ZONE NOT NULL
+);
